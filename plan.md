@@ -4,14 +4,14 @@
 
 Tarladan Sofraya, Türkiye'deki tarım üreticilerini manav, market, restoran ve diğer profesyonel alıcılarla doğrudan buluşturan B2B tarım ticaret platformudur. Marka vaadi: **“Üreticiden doğrudan sofraya.”** Kullanıcı rolleri üretici, alıcı/esnaf, nakliyeci ve yöneticidir. Uzun vadeli kapsam; ürün/stok/hasat yönetimi, çoklu üreticiden sepet ve sipariş, nakliye teklifleri ile teslimat, yönetim/komisyon/şikâyet/raporlar, ödeme ve bildirim entegrasyonları, SEO, güvenlik ve mevzuat değerlendirmesini içerir.
 
-Kullanıcı onayı uyarınca seçilen yığın Next.js, TypeScript, Tailwind CSS, Supabase ve Vercel'dir. İlk aşama yalnızca özgün marka/tasarım sistemi ve ana sayfa uygulamasıdır. Gerçek hesaplar bağlanmadan Supabase, ödeme, harita, e-posta, SMS veya WhatsApp entegrasyonlarının kurulduğu iddia edilmeyecektir. Canlı ticaret işlevleri, bu aşamanın kapsamı dışında bırakılmayacak; yalnızca sıralı geliştirme takvimindeki sonraki aşamalarda uygulanacaktır.
+Kullanıcı onayı uyarınca seçilen yığın Next.js, TypeScript, Tailwind CSS, Supabase ve Vercel'dir. Aşama 1 marka/tasarım sistemi ve tanıtım ana sayfasını tamamladı. Kullanıcının organizasyon ve aylık 0 USD proje maliyeti için ayrı onayıyla Supabase'de yeni, aktif `dmfcruizfwiuneilckji` projesi `eu-central-1` bölgesinde açıldı; mevcut, ilgisiz Supabase projelerine dokunulmadı. Aşama 2'de ilk PostgreSQL şeması ve uygulama istemcileri ekleniyor. GitHub/Vercel hesabı, domain, ödeme, harita, e-posta, SMS veya WhatsApp entegrasyonlarının bağlandığı iddia edilmeyecektir. Canlı ticaret işlevleri sonraki aşamalarda uygulanacaktır.
 
 ## Uygulama yaklaşımı
 
 - Next.js App Router ile sunucu tarafında anlamlı ve indekslenebilir ilk HTML üret; ana sayfa başlık/açıklama ve sosyal paylaşım metadatasını route seviyesinde tanımla. Henüz gerçek bir domain belirlenmediğinden tahmini canonical/OG URL yazma.
 - TypeScript ve Tailwind CSS ile tutarlı tasarım değişkenleri ve küçük, yeniden kullanılabilir arayüz bileşenleri oluştur. İstemci tarafı etkileşimi yalnızca mobil menü, arama alanı ve benzeri gerçekten etkileşimli bileşenlerle sınırlı tut.
 - Özgün hero fotoğrafını görsel üretim aracıyla hazırla, ardından proje depolamasına yükleyerek uygulamada proje-içi görsel yolu ile kullan. Logoyu basit, ölçeklenebilir bir SVG işareti ve ayrı wordmark düzeni olarak kodla; marka yazısını raster görsel içine gömme.
-- Uygulamanın uzun vadeli backend sınırı Supabase Auth, PostgreSQL/RLS, Storage, Realtime ve gerektiğinde Edge Functions'tır. Güvenilir sunucu işlemleri Next.js sunucu katmanında/uygun Edge Function'da yürütülecek; servis rolü veya diğer gizli anahtarlar tarayıcıya aktarılmayacaktır. Vercel dağıtımı hedeflenir; bu ilk adımda kullanıcı hesabı bağlanmış sayılmaz.
+- Uygulamanın uzun vadeli backend sınırı Supabase Auth, PostgreSQL/RLS, Storage, Realtime ve gerektiğinde Edge Functions'tır. İstemciler `@supabase/ssr` ve yalnızca publishable anahtar ile yapılandırılır; sunucu tarafı SSR istemcisi istek başına çerezleri kullanır. Güvenilir sunucu işlemleri Next.js sunucu katmanında/uygun Edge Function'da yürütülecek; service-role/secret anahtarları tarayıcıya aktarılmayacaktır. İlk migration profiller, işletme ve rol kayıtları ile ürün kataloğu/stok/hasat çekirdeğini oluşturur; ikinci migration rol/işletme sahipliği ile moderasyon alanlarını sıkılaştırır. Sipariş ve ödeme tabloları bu ilk DB temelinin kapsamında değildir.
 - Ödeme ve sipariş durumları ayrı tutulacak. iyzico/PayTR, Google Maps/Mapbox, e-posta/SMS/WhatsApp, GA4 ve Search Console yalnızca gerekli hesap ve yetkilendirme sağlandığında etkinleştirilir. Resmî HKS/API erişimi ve mevzuat yükümlülükleri araştırılıp doğrulanmadan uygunluk iddiası yapılmaz.
 
 ## Proje yapısı
@@ -22,7 +22,10 @@ Kullanıcı onayı uyarınca seçilen yığın Next.js, TypeScript, Tailwind CSS
 - `app.config.ts`: WebDev proje logosu gibi platform metadata'sı.
 - `public/manus-routes.json`: sayfa route envanteri; sadece gerçekten mevcut route'ları tanımlar.
 - `plan.md` ve `TODO.md`: kararlar, tasarım sistemi ve tamamlanmamış ürün kapsamı.
-- Gelecek backend aşamalarında `lib/` doğrulama/veri erişimi, `app/api/` güvenilir sunucu uçları ve Supabase migration/policy dosyaları mevcut yapıya eklenir; bu aşamada henüz veritabanı şeması veya uydurma test verisi oluşturulmaz.
+- `lib/supabase/`: tarayıcı ve çerez destekli sunucu istemcileri; public ortam değişkeni kontrolü.
+- `app/api/health/supabase/`: RLS kapsamındaki kategori tablosuna sınırlı sorgu ile ortam konfigürasyonu/bağlantı durumu kontrolü.
+- `supabase/migrations/`: şema ve RLS politikalarının sürümlenmiş SQL değişiklikleri; mevcut gerçek proje ref'i `dmfcruizfwiuneilckji`.
+- `supabase/README.md` ve `.env.example`: bağlantı/anahtar güvenliği ve sonraki dağıtım ortamlarının kurulum notları.
 
 ## Görsel yaklaşım
 

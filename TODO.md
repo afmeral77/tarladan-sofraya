@@ -5,8 +5,10 @@
 - [x] Mobil öncelikli, responsive ve SEO hazırlıklı ana sayfayı oluştur. Ana sayfada güçlü hero, “Üreticiden doğrudan sofraya” mesajı, ürün arama, öne çıkan tarım ürünleri, üretici keşfi, nasıl çalışır, üretici/alıcı avantajları, nakliye sistemi, güven/şeffaflık, iki rol için çağrı, SSS ve footer bulunmalı.
 
 ## Aşama 2 — Kod deposu, Supabase ve Vercel altyapısı
-- [ ] Onaylanan Next.js, TypeScript, Tailwind CSS, Supabase ve Vercel yığınını kur; GitHub'da özel veya uygun erişim kontrollü repository, Supabase PostgreSQL projesi ve Vercel dağıtım altyapısı hesap bağlantısı gerektiriyorsa güvenli yetkilendirme ile bağlanmalı. Erişim olmadan bağlantı yapılmış gibi sunma.
+- [ ] Aşama 2 genel altyapı kalemi: Onaylanan Next.js, TypeScript, Tailwind CSS, Supabase ve Vercel yığınını kur; GitHub'da özel veya uygun erişim kontrollü repository ile Vercel dağıtım altyapısını hesap bağlantısı gerekiyorsa güvenli yetkilendirme ile bağla. Bu maddede Supabase proje/DB kurulumu alttaki tamamlanan kalemlerde kanıtlandı; GitHub, Vercel ve domain bağlantıları tamamlanmadan genel kalem bitmiş sayılmaz. Erişim olmadan bağlantı yapılmış gibi sunma.
 - [ ] Domain marka adıyla bağlantıya hazır olmalı; henüz satın alınmamış/bağlanmamış domaini hazırmış gibi gösterme.
+- [x] Kullanıcı onayı ve aylık 0 USD proje teklifiyle `Tarladan Sofraya` adlı ayrı Supabase projesi `eu-central-1` bölgesinde oluşturuldu. Next.js için `@supabase/supabase-js` ve `@supabase/ssr` istemcileri, yalnızca public URL/publishable key kullanan ortam örneği ve bağlantı sağlık uç noktası kuruldu. GitHub, Vercel veya domain bağlantısı yapılmış sayılmaz.
+- [x] İlk Supabase temeli olarak `profiles`, `businesses`, `producers`, `buyers`, `carriers`, `product_categories`, `products`, `inventory`, `harvests` tabloları, indeks/ilişkiler ve kategori başlangıç kayıtları oluşturuldu. Tüm exposed tablolar RLS ile korunuyor; public katalog yalnız doğrulanmış ve public üreticilerin aktif ürünlerine açık; iş/hesap kayıtları rol ve sahiplik kurallarıyla sınırlandırıldı. Üretici oturumu doğrulama ve public durum bayraklarını değiştiremez.
 
 ## Aşama 3 — Kullanıcı kayıtları ve rol bazlı yetkilendirme
 - [ ] Dört rolü destekle: üretici, alıcı/esnaf (manav, market, restoran/lokanta), nakliyeci/lojistik firması ve yönetici. Kayıt, profil ve işletme bilgileri rol ihtiyaçlarına göre yönetilmeli; doğrulama ve e-posta doğrulama akışları uygun biçimde kurulmalı.
@@ -47,4 +49,4 @@
 - [x] Aşama 1 marka sistemi, özgün logo/hero, responsive Türkçe tanıtım ana sayfası, ürün örnek arama/filtre önizlemesi ve başlangıç SEO/robots içerikleri hazırlandı. Üyelik ve canlı tekliflerin henüz kullanılabilir olmadığı kullanıcıya açıkça bildiriliyor.
 
 ## Açık / güncel durum
-Aşama 1 tamamlandı. Sonraki sıradaki çalışma Aşama 2'dir; kullanıcı hesapları veya özel domain/entegrasyon bağlantıları henüz yapılmış sayılmaz.
+Aşama 1 tamamlandı. Aşama 2'de ayrı Supabase projesi, temel şema/RLS, SSR istemcileri ve bağlantı health endpoint'i kuruldu. GitHub kullanıcı deposu, Vercel hesabı ve özel domain henüz bağlanmadı. Authentication ekranları, rol kayıt akışları, sipariş/nakliye/ödeme tabloları ve gerçek pazaryeri işlevleri sonraki aşamalarda tamamlanacaktır.
