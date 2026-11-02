@@ -38,12 +38,13 @@ export default function HomePage() {
           </div>
           <div className="footer-note">
             <span className="eyebrow">İlk aşama</span>
-            <p>Üyelik ve canlı ürün teklifleri, altyapı tamamlandığında açılacaktır.</p>
+            <p>Kayıt ve işletme profili akışı hazır. Canlı ürün, sipariş ve ödeme özellikleri sonraki ürün aşamalarında açılacaktır.</p>
           </div>
         </div>
         <div className="container footer-bottom">
           <span>© {new Date().getFullYear()} Tarladan Sofraya</span>
           <span>Türkiye’de üretim yapanlar ve profesyonel alıcılar için.</span>
+          <a href="https://appfabrika.com/" target="_blank" rel="noreferrer noopener">Bir Appfabrika ürünü</a>
         </div>
       </footer>
     </>

@@ -30,14 +30,17 @@ export function SiteHeader() {
               {item.label}
             </a>
           ))}
-          <a className="mobile-nav-cta" href="#uyelik" onClick={() => setIsMenuOpen(false)}>
-            Platforma katıl <ArrowUpRight size={15} aria-hidden="true" />
+          <a className="mobile-nav-cta" href="/kayit" onClick={() => setIsMenuOpen(false)}>
+            Üye ol <ArrowUpRight size={15} aria-hidden="true" />
           </a>
         </nav>
 
-        <a className="header-cta" href="#uyelik">
-          Platforma katıl <ArrowUpRight size={15} aria-hidden="true" />
-        </a>
+        <div className="header-actions">
+          <a className="header-login" href="/giris">Giriş yap</a>
+          <a className="header-cta" href="/kayit">
+            Üye ol <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+        </div>
         <button
           className="menu-toggle"
           type="button"

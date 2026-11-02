@@ -158,21 +158,22 @@ export function JoinSection() {
         <div className="join-copy">
           <span className="eyebrow eyebrow-light"><span className="eyebrow-dot" /> Tarladan Sofraya’ya katılın</span>
           <h2>Birlikte, daha<br /><em>iyi bir yol</em> açalım.</h2>
-          <p>Üretici veya profesyonel alıcı olun; platformun ilk kullanıcıları arasında yer almak için gelişmeleri takip edin.</p>
+          <p>Üretici, alıcı/esnaf veya nakliyeci olarak hesabınızı oluşturun ve işletme profilinizi tamamlayın.</p>
         </div>
         <div className="join-actions">
-          <div className="join-action-card">
+          <a className="join-action-card" href="/kayit?rol=producer">
             <span className="join-role">ÜRETİCİ</span><SproutIcon /><h3>Ürününüzü tanıtın.</h3>
-            <p>Üretici üyelik akışı hazırlık aşamasında.</p>
-            <span className="coming-soon">Üyelik yakında açılacak</span>
-          </div>
-          <div className="join-action-card join-action-light">
+            <p>Hesabınızı açın, üretici profilinizi oluşturun ve doğrulama sürecine katılın.</p>
+            <span className="join-card-cta">Üretici olarak kayıt olun <span aria-hidden="true">→</span></span>
+          </a>
+          <a className="join-action-card join-action-light" href="/kayit?rol=buyer">
             <span className="join-role">ALICI / ESNAF</span><Boxes size={22} strokeWidth={1.5} aria-hidden="true" /><h3>Tedarik ağınızı genişletin.</h3>
-            <p>Alıcı üyelik akışı hazırlık aşamasında.</p>
-            <span className="coming-soon">Üyelik yakında açılacak</span>
-          </div>
+            <p>İşletme türünüzü seçin ve alıcı profilinizi tamamlayın.</p>
+            <span className="join-card-cta">Alıcı olarak kayıt olun <span aria-hidden="true">→</span></span>
+          </a>
         </div>
-        <div className="join-footnote"><span /> Canlı üyelik, ürün teklifi ve sipariş sistemleri sonraki geliştirme aşamalarında açılacaktır.</div>
+        <div className="join-footnote"><span /> Hesap kaydı ve işletme profili akışı hazır. Canlı stok, ürün teklifi, sepet ve sipariş sonraki geliştirme aşamalarında açılacaktır.</div>
+        <p className="join-carrier-link">Nakliye hizmeti mi sunuyorsunuz? <a href="/kayit?rol=carrier">Nakliyeci olarak kayıt olun.</a></p>
       </div>
     </section>
   );
@@ -193,7 +194,7 @@ const faqs = [
   },
   {
     q: "Şu anda üyelik veya sipariş oluşturabilir miyim?",
-    a: "Hayır. Bu ilk sürüm marka ve ürün tanıtımıdır. Üyelik, canlı stok, fiyat ve sipariş akışları henüz açılmamıştır; örnek kartlar canlı teklif değildir.",
+    a: "Üretici, profesyonel alıcı ve nakliyeci için hesap kaydı ile işletme profili ekranları hazır. E-posta doğrulaması gerekir; canlı stok, fiyat teklifi, sepet, sipariş ve ödeme akışları henüz açılmamıştır. Örnek kartlar canlı teklif değildir.",
   },
 ];
 

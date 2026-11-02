@@ -14,17 +14,26 @@ Kullanıcı onayı uyarınca seçilen yığın Next.js, TypeScript, Tailwind CSS
 - Uygulamanın uzun vadeli backend sınırı Supabase Auth, PostgreSQL/RLS, Storage, Realtime ve gerektiğinde Edge Functions'tır. İstemciler `@supabase/ssr` ve yalnızca publishable anahtar ile yapılandırılır; sunucu tarafı SSR istemcisi istek başına çerezleri kullanır. Public URL/publishable key committed `lib/supabase/config.ts` varsayılanlarıdır (gizli değer değildir) ve environment override'ı desteklenir; service-role/secret anahtarları tarayıcıya aktarılmayacaktır. İlk migration profiller, işletme ve rol kayıtları ile ürün kataloğu/stok/hasat çekirdeğini oluşturur; ikinci migration rol/işletme sahipliği ile moderasyon alanlarını sıkılaştırır. Sipariş ve ödeme tabloları bu ilk DB temelinin kapsamında değildir.
 - Ödeme ve sipariş durumları ayrı tutulacak. iyzico/PayTR, Google Maps/Mapbox, e-posta/SMS/WhatsApp, GA4 ve Search Console yalnızca gerekli hesap ve yetkilendirme sağlandığında etkinleştirilir. Resmî HKS/API erişimi ve mevzuat yükümlülükleri araştırılıp doğrulanmadan uygunluk iddiası yapılmaz.
 
+## Aşama 3 — Kimlik doğrulama, rol kaydı ve Appfabrika atfı
+
+- Supabase Auth e-posta/parola sağlayıcısı kullanılacak. Salt-okunur Auth ayar ucu e-posta sağlayıcısının açık, signup'ın etkin ve `mailer_autoconfirm=false` (doğrulama gerekiyor) olduğunu gösterdi. Kullanıcı kendisini üretici, alıcı/esnaf veya nakliyeci olarak kaydedebilir; yönetici rolü genel kayıt ekranından verilemez. `profiles.role` kaydı auth trigger'ından gelir; tarayıcı rol/admin veya doğrulama bayraklarını doğrudan değiştiremez.
+- Rotalar: `/kayit`, `/giris`, `/sifre-sifirla`, `/sifre-yenile`, `/kayit/profil`, `/hesabim`; Supabase doğrulama/parola bağlantıları `/auth/callback` route handler'ında PKCE kodu server-side exchange ile işler. `proxy.ts` Supabase `getClaims()` ile session yeniler; cookie `SameSite=None; Secure` yazılır ve böylece HTTPS gömülü Preview çalışır. Yetkili sayfa doğrulanmış claim ile sunucu tarafında korunur; hedef yönlendirmeler yalnızca güvenli yerel path kabul eder.
+- E-posta doğrulaması sonrası işletme profilini tamamlama adımı `SECURITY INVOKER` olan tek bir PostgreSQL RPC ile atomik yapılır; rol `auth.uid()` profiliyle doğrulanır ve tüm yazmalar mevcut kolon grant'leri ile RLS politikalarına tabidir. Buyer subtype doğrudan DB yazmalarında da CHECK constraint ile zorunludur. Üretici public adı/şehir/bölge, alıcı işletme türü (manav, market, restoran, lokanta, diğer), nakliyeci araç türü/kapasitesi/hizmet bölgeleri ile ortak işletme/iletişim ve isteğe bağlı vergi alanları alınır. Yönetici profil kaydı platform yönetim sürecine aittir.
+- Her auth/profil ekranı mevcut responsive marka sistemini kullanır; ana sayfa üyelik CTA'ları gerçek kayıt ekranlarına bağlanır. Ana sayfa ve auth alanı `Bir Appfabrika ürünü` atfını [appfabrika.com](https://appfabrika.com/) adresine bağlar.
+- Kod e-posta callback URL'lerini mevcut tarayıcı origin'inden üretir. Supabase Auth URL Configuration'da localhost, HTTPS Preview callback ve sonradan seçilecek kesin production URL allowlist edilmelidir. Bu ayarlar ve özel SMTP kimlik bilgileri proje API'sinden yönetilemiyor; manuel dashboard ayarı gereksinimi teslimde açıkça bildirilir. Özel SMTP olmadan doğrulama e-postalarının gerçek kullanıcıya teslim edildiği iddia edilmez.
+- Uygulama referansları: [Supabase SSR client ve proxy](https://supabase.com/docs/guides/auth/server-side/creating-a-client), [parola tabanlı e-posta Auth](https://supabase.com/docs/guides/auth/passwords), [redirect allowlist ve Site URL](https://supabase.com/docs/guides/auth/redirect-urls), [production Auth checklist / SMTP](https://supabase.com/docs/guides/deployment/going-into-prod), [Appfabrika](https://appfabrika.com/).
+
 ## Proje yapısı
 
-- `app/`: Next.js App Router sayfaları, global stiller ve metadata; başlangıçta `/` ana sayfası.
-- `components/`: Navbar, hero, ürün keşif kartları, işleyiş/avantaj/güven bölümleri, CTA ve footer gibi tekrar kullanılabilir sunum bileşenleri.
+- `app/`: Next.js App Router sayfaları, global stiller ve metadata; `/`, kayıt/giriş/parola/profil/hesabım sayfaları ve Auth callback route handler.
+- `components/`: Navbar, hero, ürün keşif kartları, işleyiş/avantaj/güven bölümleri, CTA/footer ve paylaşılan auth shell/form/profil bileşenleri.
 - `public/`: favicon ve statik, küçük marka varlıkları; büyük/üretilmiş görseller mümkün olduğunda proje managed storage yolundan sunulur.
 - `app.config.ts`: WebDev proje logosu gibi platform metadata'sı.
 - `public/manus-routes.json`: sayfa route envanteri; sadece gerçekten mevcut route'ları tanımlar.
 - `plan.md` ve `TODO.md`: kararlar, tasarım sistemi ve tamamlanmamış ürün kapsamı.
-- `lib/supabase/`: tarayıcı ve çerez destekli sunucu istemcileri; public ortam değişkeni kontrolü.
+- `lib/supabase/`: tarayıcı, çerez destekli sunucu istemcileri ve SSR session yenileme proxy'si; yalnız public ortam değişkeni kullanımı.
 - `app/api/health/supabase/`: RLS kapsamındaki kategori tablosuna sınırlı sorgu ile ortam konfigürasyonu/bağlantı durumu kontrolü.
-- `supabase/migrations/`: şema ve RLS politikalarının sürümlenmiş SQL değişiklikleri; mevcut gerçek proje ref'i `dmfcruizfwiuneilckji`.
+- `supabase/migrations/`: şema, RLS politikaları ve güvenli profil tamamlama RPC'sinin sürümlenmiş SQL değişiklikleri; mevcut gerçek proje ref'i `dmfcruizfwiuneilckji`.
 - `supabase/README.md` ve `.env.example`: bağlantı/anahtar güvenliği ve sonraki dağıtım ortamlarının kurulum notları.
 
 ## Görsel yaklaşım

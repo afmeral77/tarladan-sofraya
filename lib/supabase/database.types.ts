@@ -25,6 +25,7 @@ type Table<Row, Insert, Update, Relations extends Relationship[] = []> = {
 
 type ProfileRole = "producer" | "buyer" | "carrier" | "admin";
 type BusinessKind = "producer" | "buyer" | "carrier";
+type BuyerBusinessType = "manav" | "market" | "restoran" | "lokanta" | "diger";
 type VerificationStatus = "pending" | "approved" | "rejected";
 type ProductStatus = "draft" | "active" | "paused" | "archived";
 type ProductUnit = "kg" | "ton" | "crate" | "piece";
@@ -42,6 +43,7 @@ type BusinessRow = {
   id: string;
   owner_id: string;
   kind: BusinessKind;
+  buyer_type: BuyerBusinessType | null;
   legal_name: string;
   display_name: string;
   tax_office: string | null;
@@ -309,10 +311,33 @@ export type Database = {
       >;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      complete_business_profile: {
+        Args: {
+          p_legal_name: string;
+          p_display_name: string;
+          p_phone?: string;
+          p_email?: string;
+          p_city?: string;
+          p_district?: string;
+          p_address?: string;
+          p_tax_office?: string;
+          p_tax_number?: string;
+          p_buyer_type?: BuyerBusinessType;
+          p_public_name?: string;
+          p_bio?: string;
+          p_region?: string;
+          p_vehicle_type?: string;
+          p_capacity_kg?: number;
+          p_service_regions?: string[];
+        };
+        Returns: string;
+      };
+    };
     Enums: {
       profile_role: ProfileRole;
       business_kind: BusinessKind;
+      buyer_business_type: BuyerBusinessType;
       producer_verification_status: VerificationStatus;
       catalog_product_status: ProductStatus;
       product_unit: ProductUnit;

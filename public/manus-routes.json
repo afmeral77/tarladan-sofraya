@@ -1,1 +1,1 @@
-{"routes":[{"path":"/","title":"Tarladan Sofraya — Üreticiden Doğrudan Sofraya"}]}
+{"routes":[{"path":"/","title":"Tarladan Sofraya — Üreticiden Doğrudan Sofraya"},{"path":"/kayit","title":"Ücretsiz hesap oluştur | Tarladan Sofraya"},{"path":"/giris","title":"Giriş yap | Tarladan Sofraya"},{"path":"/sifre-sifirla","title":"Parola sıfırlama | Tarladan Sofraya"},{"path":"/sifre-yenile","title":"Yeni parola belirle | Tarladan Sofraya"},{"path":"/kayit/profil","title":"İşletme profilinizi tamamlayın | Tarladan Sofraya"},{"path":"/hesabim","title":"Hesabım | Tarladan Sofraya"}]}
