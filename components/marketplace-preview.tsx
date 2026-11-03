@@ -46,7 +46,8 @@ export function MarketplacePreview() {
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmittedQuery(query);
-    document.getElementById("pazar-yeri")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const search = query.trim();
+    window.location.assign(search ? `/urunler?q=${encodeURIComponent(search)}` : "/urunler");
   }
 
   return (
@@ -108,7 +109,7 @@ export function MarketplacePreview() {
               <span>Ara</span><ArrowRight size={18} aria-hidden="true" />
             </button>
           </form>
-          <p className="search-note"><span /> Arama önizlemesi örnek içerik üzerindedir; henüz canlı ürün teklifi göstermez.</p>
+          <p className="search-note"><span /> Arama sizi canlı pazaryerine götürür; aşağıdaki örnek kartlar gerçek ilan değildir.</p>
         </div>
       </section>
 
@@ -122,6 +123,7 @@ export function MarketplacePreview() {
             <div className="market-intro">
               <p>Farklı bölgelerden gelen ürünleri tek bir yerde keşfedin. Ürün, miktar ve taşıma bilgisi aynı alışveriş yolculuğunda buluşsun.</p>
               <a className="text-link" href="#nasil-calisir">Platformu tanıyın <ArrowUpRight size={16} aria-hidden="true" /></a>
+              <a className="text-link" href="/urunler">Canlı ürünleri inceleyin <ArrowUpRight size={16} aria-hidden="true" /></a>
             </div>
           </div>
 
@@ -174,7 +176,7 @@ export function MarketplacePreview() {
               <p>Bu örnek aramayla eşleşen kart yok. Farklı bir kelime veya kategori deneyin.</p>
             </div>
           )}
-          <div className="market-bottom-line"><span /> Ürünler üretildiği yer ve taşıma bilgisiyle birlikte sunulacak.</div>
+          <div className="market-bottom-line"><span /> Canlı ilanlar doğrulanmış üreticilerden gelir. <a href="/urunler">Pazaryerini aç <ArrowRight size={15} aria-hidden="true" /></a></div>
         </div>
       </section>
     </>

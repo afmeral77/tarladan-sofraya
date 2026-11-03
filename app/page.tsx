@@ -31,14 +31,14 @@ export default function HomePage() {
             <p>Üreticiden doğrudan sofraya.</p>
           </div>
           <div className="footer-links">
-            <a href="#pazar-yeri">Ürünleri keşfet</a>
+            <a href="/urunler">Canlı pazaryerini keşfet</a>
             <a href="#nasil-calisir">Nasıl çalışır?</a>
             <a href="#nakliye">Nakliye modeli</a>
             <a href="#uyelik">Üyelik bilgisi</a>
           </div>
           <div className="footer-note">
-            <span className="eyebrow">İlk aşama</span>
-            <p>Kayıt ve işletme profili akışı hazır. Canlı ürün, sipariş ve ödeme özellikleri sonraki ürün aşamalarında açılacaktır.</p>
+            <span className="eyebrow">Canlı ürün keşfi</span>
+            <p>Pazaryeri yalnızca doğrulanmış üreticilerin gerçek ilanlarını gösterir. Sepet, sipariş, nakliye teklifi ve ödeme akışları henüz açık değildir.</p>
           </div>
         </div>
         <div className="container footer-bottom">

@@ -63,7 +63,12 @@ export default async function AccountPage() {
             <div><dt>E-posta</dt><dd>{userData.user?.email ?? "—"}</dd></div>
             <div><dt>Telefon</dt><dd>{profile.phone || "Henüz eklenmedi"}</dd></div>
           </dl>
-          <p className="account-stage-note">Hesap ve işletme profili hazır. Ürün listeleme, sipariş ve nakliye panelleri sonraki ürün aşamalarında devreye alınacaktır.</p>
+          <div className="account-tool-links">
+            {profile.role === "producer" && <Link href="/uretici/urunler">Ürün ve stoklarımı yönet <span aria-hidden="true">→</span></Link>}
+            {profile.role === "buyer" && <Link href="/urunler">Canlı pazaryerini keşfet <span aria-hidden="true">→</span></Link>}
+            {profile.role === "carrier" && <span>Nakliye teklif paneli sonraki ürün aşamasında açılacaktır.</span>}
+          </div>
+          <p className="account-stage-note">Üreticiler ürün, fiyat, stok ve hasat bilgilerini yönetebilir. Sipariş, sepet ve nakliye teklifleri henüz etkin değildir.</p>
           <div className="account-actions"><Link className="secondary-action" href="/"><ArrowLeft size={15} aria-hidden="true" /> Tanıtım sayfasına dön</Link><LogoutButton /></div>
         </section>
       </div>

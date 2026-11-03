@@ -4,10 +4,10 @@ import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
 const navigation = [
-  { label: "Ürünleri keşfet", href: "#pazar-yeri" },
-  { label: "Nasıl çalışır?", href: "#nasil-calisir" },
-  { label: "Nakliye", href: "#nakliye" },
-  { label: "Güven", href: "#guven" },
+  { label: "Ürün pazaryeri", href: "/urunler" },
+  { label: "Nasıl çalışır?", href: "/#nasil-calisir" },
+  { label: "Nakliye", href: "/#nakliye" },
+  { label: "Güven", href: "/#guven" },
 ];
 
 export function SiteHeader() {
@@ -16,7 +16,7 @@ export function SiteHeader() {
   return (
     <header className="site-header" id="top">
       <div className="container header-inner">
-        <a className="brand" href="#top" aria-label="Tarladan Sofraya ana sayfa">
+        <a className="brand" href="/" aria-label="Tarladan Sofraya ana sayfa">
           <img src="/logo.svg" width="228" height="52" alt="Tarladan Sofraya" />
         </a>
 

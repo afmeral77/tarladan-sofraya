@@ -80,10 +80,10 @@ export function BenefitsSection() {
             <p>Ürünlerinizi, hasat zamanınızı ve stok durumunuzu tek bir üretici profilinde düzenleyin.</p>
             <ul>
               <li><span /> Ürün ve hasat bilgisi bir arada</li>
-              <li><span /> Siparişleri tek yerden takip</li>
-              <li><span /> Satış geçmişini görün</li>
+              <li><span /> Fiyat ve stok bilgisini yayınlayın</li>
+              <li><span /> Üretici doğrulaması sonrası pazaryerinde görünün</li>
             </ul>
-            <a href="#uyelik" className="benefit-link">Üretici yolculuğu <ArrowUpRight size={16} aria-hidden="true" /></a>
+            <a href="/kayit?rol=producer" className="benefit-link">Üretici hesabı oluştur <ArrowUpRight size={16} aria-hidden="true" /></a>
           </article>
           <article className="benefit-panel buyer-panel">
             <div className="benefit-panel-heading"><span className="benefit-index">02 / ALICI</span><Boxes size={22} strokeWidth={1.5} aria-hidden="true" /></div>
@@ -194,7 +194,7 @@ const faqs = [
   },
   {
     q: "Şu anda üyelik veya sipariş oluşturabilir miyim?",
-    a: "Üretici, profesyonel alıcı ve nakliyeci için hesap kaydı ile işletme profili ekranları hazır. E-posta doğrulaması gerekir; canlı stok, fiyat teklifi, sepet, sipariş ve ödeme akışları henüz açılmamıştır. Örnek kartlar canlı teklif değildir.",
+    a: "Üretici, profesyonel alıcı ve nakliyeci için hesap kaydı hazır. E-posta doğrulaması gerekir. Üreticiler ürün, fiyat, stok ve hasat bilgilerini yönetebilir; onaylanmış üreticilerin canlı ilanları pazaryerinde görünür. Sepet, sipariş ve ödeme akışları henüz açılmamıştır. Ana sayfadaki örnek kartlar canlı ilan değildir.",
   },
 ];
 
@@ -219,3 +219,4 @@ export function FaqSection() {
     </section>
   );
 }
+          <div className="join-footnote"><span /> Ürün ve stok yönetimi ile doğrulanmış üreticilerin canlı ilanları kullanılabilir. Sepet, sipariş ve ödeme sonraki aşamalardadır.</div>

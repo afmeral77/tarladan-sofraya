@@ -73,6 +73,7 @@ type ProductRow = {
   id: string;
   producer_user_id: string;
   category_id: string;
+  image_path: string | null;
   name: string;
   slug: string;
   description: string | null;
@@ -333,6 +334,45 @@ export type Database = {
         };
         Returns: string;
       };
+      save_producer_product: {
+        Args: {
+          p_available_quantity: number;
+          p_category_id: string;
+          p_description: string | null;
+          p_estimated_quantity: number | null;
+          p_harvest_date: string | null;
+          p_harvest_notes: string | null;
+          p_harvest_quantity: number | null;
+          p_image_path: string | null;
+          p_minimum_order_qty: number;
+          p_name: string;
+          p_origin_city: string | null;
+          p_origin_region: string | null;
+          p_price_per_unit: number;
+          p_product_id: string | null;
+          p_quality_grade: string | null;
+          p_status: ProductStatus;
+          p_unit: ProductUnit;
+        };
+        Returns: string;
+      };
+      search_catalog_products: {
+        Args: {
+          p_category_slug?: string;
+          p_harvest_from?: string;
+          p_harvest_to?: string;
+          p_max_price?: number;
+          p_min_price?: number;
+          p_min_quantity?: number;
+          p_page?: number;
+          p_page_size?: number;
+          p_quality_grade?: string;
+          p_query?: string;
+          p_region?: string;
+          p_sort?: string;
+        };
+        Returns: { product_id: string; total_count: number }[];
+      };
     };
     Enums: {
       profile_role: ProfileRole;
@@ -345,3 +385,7 @@ export type Database = {
     CompositeTypes: Record<string, never>;
   };
 };
+
+
+export type Tables<Name extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][Name] extends { Row: infer Row } ? Row : never;
